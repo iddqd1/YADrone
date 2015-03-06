@@ -23,6 +23,7 @@ import java.net.SocketTimeoutException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.zip.CRC32;
 
 import de.yadrone.base.command.CommandManager;
@@ -465,7 +466,8 @@ public class NavDataManager extends AbstractManager
 	private static final int KALMAN_PRESSURE_TAG = 24;
 	private static final int HDVIDEO_STREAM_TAG = 25;
 	private static final int WIFI_TAG = 26;
-	private static final int ZIMMU_3000_TAG = 27;
+	private static final int ZIMMU_3000_TAG = -27; //some crazy sheet
+	private static final int GPS_TAG = 27;
 
 	private void parseOption(int tag, ByteBuffer optionData) {
 		switch (tag) {
@@ -552,6 +554,9 @@ public class NavDataManager extends AbstractManager
 			break;
 		case WIFI_TAG:
 			parseWifiOption(optionData);
+			break;
+		case GPS_TAG:
+			parseGPSOption(optionData);
 			break;
 		case ZIMMU_3000_TAG:
 			parseZimmu3000Option(optionData);
@@ -897,6 +902,15 @@ public class NavDataManager extends AbstractManager
 			for (int i=0; i < visionListener.size(); i++)
 				visionListener.get(i).receivedRawData(vision_raw);
 		}
+	}
+	
+	private void parseGPSOption(ByteBuffer b) {
+
+			double latitude = b.getDouble();
+			double longitude = b.getDouble();
+			System.out.println("gps gps");
+			System.out.println("latitude: " + latitude +", longitude: " + longitude);
+			
 	}
 
 	private void parseAltitudeOption(ByteBuffer b) {

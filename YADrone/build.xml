@@ -47,7 +47,7 @@
 		</pathconvert>
 
 		
-		<jar destfile="dist/yadrone_03.jar">
+		<jar destfile="dist/yadrone_04.jar">
 			<fileset dir="bin" includes="**/**" />
 			
 			<manifest>
